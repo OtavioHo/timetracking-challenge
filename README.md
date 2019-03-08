@@ -31,6 +31,9 @@ The solution was built with Ruby on Rails and it uses SQLite for its relational 
 ## Maps
 To display the maps in the views the Google Maps JS API was used.
 
+### API KEY
+Before you run the app, replace 'MY_API_KEY' on ```app/views/shared/_maps.html.erb```
+
 ## Instructions
 
 To run the application follow the steps:
