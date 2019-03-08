@@ -37,12 +37,4 @@ class TimetrackingsControllerTest < ActionDispatch::IntegrationTest
     patch timetracking_url(@timetracking), params: { timetracking: { latitude: @timetracking.latitude, longitude: @timetracking.longitude } }
     assert_redirected_to timetracking_url(@timetracking)
   end
-
-  test "should destroy timetracking" do
-    assert_difference('Timetracking.count', -1) do
-      delete timetracking_url(@timetracking)
-    end
-
-    assert_redirected_to timetrackings_url
-  end
 end
