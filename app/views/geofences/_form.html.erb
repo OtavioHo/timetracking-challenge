@@ -1,0 +1,90 @@
+<%= form_with(model: geofence, local: true) do |form| %>
+  <% if geofence.errors.any? %>
+    <div class="alert alert-danger">
+      <h2 class="alert-heading"><%= pluralize(geofence.errors.count, "error") %> prohibited this geofence from being saved:</h2>
+
+      <hr>
+      <ul>
+      <% geofence.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" style="display: none">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude, :id=>"latitude", :value=>0 %>
+  </div>
+
+  <div class="field" style="display: none">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude, :id=>"longitude", :value=> 0 %>
+  </div>
+
+  <div class="form-group" style="margin-top: 15px;">
+    <div class="field">
+      <label for="radius">Radius (m)</label>
+      <%= form.text_field :radius, :class=>"form-control", :id=>"radius"%>
+    </div>
+  </div>
+
+  <div style="height: 500px; margin-bottom: 15px;" id="map"></div>
+
+  <div class="form-group">
+    <div class="actions" id="submit" >
+      <%= form.submit :class=>"btn btn-primary"%>
+    </div>
+  </div>
+<% end %>
+
+<script type='text/javascript'>
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 42 , lng: -15},
+    zoom: 10
+  });
+
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      map.setCenter(pos);
+    }
+  )
+
+  var marker = new google.maps.Marker({
+    position: null,
+    map: null
+  });
+
+  var circle = new google.maps.Circle({
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+    map: null,
+    center: null,
+    radius: 0
+  })
+
+  map.addListener('click', function(e) {
+    marker.setPosition(e.latLng);
+    marker.setMap(map);
+
+    circle.setCenter(e.latLng);
+    circle.setMap(map);
+    circle.setRadius(parseFloat(document.getElementById("radius").value))
+
+    document.getElementById("latitude").value = e.latLng.lat();
+    document.getElementById("longitude").value = e.latLng.lng();
+  })
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEhoVIZq0umUY3oU3zuwraHID-Y4IJzU8&callback=initMap"
+async defer></script>

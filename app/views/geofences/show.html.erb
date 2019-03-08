@@ -1,0 +1,36 @@
+<%= render 'shared/header', titulo: "Geofence"%>
+<div class="container">
+  <table class="table" style="margin-top: 15px">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Latitude</th>
+      <th scope="col">Longitude</th>
+      <th scope="col">Radius (m)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @geofence.latitude %></td>
+      <td><%= @geofence.longitude %></td>
+      <td><%= @geofence.radius %></td>
+    </tr>
+  </tbody>
+  </table>
+
+  <div id="map" style="height: 500px; margin-bottom: 15px" ></div>
+
+  <%= link_to 'Edit', edit_geofence_path(@geofence) %> |
+  <%= link_to 'Back', geofences_path %>
+</div>
+
+<script type='text/javascript'>
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 42 , lng: -15},
+    zoom: 10
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=MyAPI&callback=initMap"
+async defer></script>

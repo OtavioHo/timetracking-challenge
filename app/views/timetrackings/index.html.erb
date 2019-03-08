@@ -1,0 +1,28 @@
+<%= render 'shared/header', titulo: "Timetrackings"%>
+<div class="container" style="margin-top: 15px">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Latitude</th>
+        <th scope="col">Longitude</th>
+        <th scope="col">Comments</th>
+        <th scope="col">Time</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @timetrackings.each do |timetracking| %>
+        <tr>
+          <td><%= timetracking.latitude %></td>
+          <td><%= timetracking.longitude %></td>
+          <td><%= timetracking.comments %></td>
+          <td><%= timetracking.created_at %></td>
+          <td><%= link_to 'Show', timetracking %></td>
+          <td><%= link_to 'Edit', edit_timetracking_path(timetracking) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'New Timetracking', new_timetracking_path, :class=>"btn btn-primary" %>
+</div>

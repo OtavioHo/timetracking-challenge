@@ -1,0 +1,43 @@
+<%= render 'shared/header', titulo: "Timetracking"%>
+<div class="container">
+  <table class="table" style="margin-top: 15px">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Latitude</th>
+      <th scope="col">Longitude</th>
+      <th scope="col">Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @timetracking.latitude %></td>
+      <td><%= @timetracking.longitude %></td>
+      <td><%= @timetracking.created_at %></td>
+    </tr>
+  </tbody>
+  </table>
+
+  <div id="map" style="height: 500px;"></div>
+
+  <div class="card" style="margin: 15px 0 15px 0;">
+    <div class="card-header">Comments</div>
+    <div class="card-body">
+      <%= @timetracking.comments %>
+    </div>
+</div>
+
+  <%= link_to 'Edit', edit_timetracking_path(@timetracking) %> |
+  <%= link_to 'Back', timetrackings_path %>
+</div>
+
+<script type='text/javascript'>
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 42 , lng: -15},
+    zoom: 10
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=MyAPI&callback=initMap"
+async defer></script>

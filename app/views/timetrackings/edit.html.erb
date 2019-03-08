@@ -1,0 +1,8 @@
+<%= render 'shared/header', titulo: "Editing Timetracking"%>
+
+<div class="container">
+  <%= render 'form', timetracking: @timetracking %>
+
+  <%= link_to 'Show', @timetracking %> |
+  <%= link_to 'Back', timetrackings_path %>
+</div>

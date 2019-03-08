@@ -1,0 +1,87 @@
+<%= render 'shared/header', titulo: "New Timetracking" %>
+
+<div class="container">
+
+  <div class="text-center">
+    <h1 id="clock" style="margin: 15px"></h1>
+  </div>
+  <div id="map" style="height: 500px;"></div>
+
+  <%= render 'form', timetracking: @timetracking %>
+
+  <%= link_to 'Back', timetrackings_path %>
+</div>
+
+<script type='text/javascript'>
+
+var clock = function () {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+
+  if (m<10) { m = "0"+m};
+  if (s<10) { s = "0"+s};
+
+  document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+  var t = setTimeout(clock, 500);
+}
+clock();
+
+var geofences = []
+
+<% @geofence.each do |geo|%>
+  geofences.push({pos: {lat: <%= geo.latitude %>, lng: <%= geo.longitude%>}, radius: <%= geo.radius %>})
+<%end%>
+
+document.getElementById("submit").disabled = true;
+
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 42 , lng: -15},
+    zoom: 10
+  });
+
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      map.setCenter(pos);
+
+      var marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        title: 'Hello World!'
+      });
+
+      for(i in geofences) {
+        var cityCircle = new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          map: map,
+          center: geofences[i].pos,
+          radius: geofences[i].radius
+        });
+
+        var isIn = google.maps.geometry.spherical.computeDistanceBetween(
+          new google.maps.LatLng(geofences[i].pos.lat, geofences[i].pos.lng),
+          new google.maps.LatLng(pos.lat, pos.lng)
+          ) < geofences[i].radius;
+
+        if(isIn) {
+          document.getElementById("submit").disabled = false;
+        }
+      }
+    }
+  )
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEhoVIZq0umUY3oU3zuwraHID-Y4IJzU8&libraries=geometry&callback=initMap"
+async defer></script>

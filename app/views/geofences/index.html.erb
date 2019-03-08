@@ -1,0 +1,32 @@
+<%= render 'shared/header', titulo: "Geofences"%>
+
+<div class="container" style="margin-top: 15px;">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Latitude</th>
+        <th scope="col">Longitude</th>
+        <th scope="col">Radius (m)</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @geofences.each do |geofence| %>
+        <tr>
+          <td><%= geofence.latitude %></td>
+          <td><%= geofence.longitude %></td>
+          <td><%= geofence.radius %></td>
+          <td><%= link_to 'Show', geofence %></td>
+          <td><%= link_to 'Edit', edit_geofence_path(geofence) %></td>
+          <td><%= link_to 'Destroy', geofence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'New Geofence', new_geofence_path, :class=>"btn btn-primary" %>
+</div>
+
+
