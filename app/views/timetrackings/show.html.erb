@@ -31,13 +31,20 @@
 </div>
 
 <script type='text/javascript'>
+
 var map;
 function initMap() {
+  var pos = {lat: <%= @timetracking.latitude%>, lng: <%= @timetracking.longitude %>}
+
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 42 , lng: -15},
+    center: pos,
     zoom: 10
   });
+
+  var marker = new google.maps.Marker({
+    map: map,
+    position: pos
+  })
 }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=MyAPI&callback=initMap"
-async defer></script>
+<%= render 'shared/maps' %>

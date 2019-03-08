@@ -26,11 +26,23 @@
 <script type='text/javascript'>
 var map;
 function initMap() {
+  var pos = {lat: <%= @geofence.latitude%>, lng: <%= @geofence.longitude %>}
+
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 42 , lng: -15},
+    center: pos,
     zoom: 10
   });
+
+  var circle = new google.maps.Circle({
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+    map: map,
+    center: pos,
+    radius: <%= @geofence.radius %>
+  })
 }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=MyAPI&callback=initMap"
-async defer></script>
+<%= render 'shared/maps' %>
