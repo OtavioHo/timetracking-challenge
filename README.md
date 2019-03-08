@@ -34,9 +34,9 @@ To display the maps in the views the Google Maps JS API was used.
 ## Instructions
 
 To run the application follow the steps:
- 1- clone the repo ```git clone ```
- 2- enter the project directory ```cd timetracking-challenge```
- 3- install the dependencies ```bundle install```
- 4- execute the migrations ```rails db:migrate```
- 5- start the server ```rails s```
- 6- access the ap in http://localhost:3000/timetracking
+ 1. clone the repo ```git clone ```
+ 2. enter the project directory ```cd timetracking-challenge```
+ 3. install the dependencies ```bundle install```
+ 4. execute the migrations ```rails db:migrate```
+ 5. start the server ```rails s```
+ 6. access the ap in http://localhost:3000/timetracking
