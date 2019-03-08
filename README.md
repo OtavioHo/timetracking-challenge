@@ -1,24 +1,42 @@
-# README
+# Timetracking Challenge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a solution for the [Timetracking Challenge](https://github.com/mywork/mywork-challenge) from mywork.
 
-Things you may want to cover:
+## About
 
-* Ruby version
+The solution was built with Ruby on Rails and it uses SQLite for its relational database.
+ - Ruby 2.5.1
+ - Rails 5.2.2
 
-* System dependencies
+## Models
+ ### Timetracking
+  - latitude: number
+  - longitude: number
+  - created_at: date
+  - comments: text
 
-* Configuration
+ ### Geofence
+  - latitude: number
+  - longitude: number
+  - radius: number
 
-* Database creation
+ ### Testing
+ The models were tested using the Rails TestCase
 
-* Database initialization
+ You can run the test running the commands
+ ```rails test test/models/timetracking_test.rb```
+ and
+ ```rails test test/models/geofence_test.rb```
 
-* How to run the test suite
+## Maps
+To display the maps in the views the Google Maps JS API was used.
 
-* Services (job queues, cache servers, search engines, etc.)
+## Instructions
 
-* Deployment instructions
-
-* ...
+To run the application follow the steps:
+ 1- clone the repo ```git clone ```
+ 2- enter the project directory ```cd timetracking-challenge```
+ 3- install the dependencies ```bundle install```
+ 4- execute the migrations ```rails db:migrate```
+ 5- start the server ```rails s```
+ 6- access the ap in http://localhost:3000/timetracking
